@@ -10,7 +10,12 @@ namespace TDDKata
     {
         public int Add(string addends)
         {
-            return 0;
+            if (string.Empty == addends)
+            {
+                return 0;
+            }
+
+            return Int32.Parse(addends);
         }
     }
 }
