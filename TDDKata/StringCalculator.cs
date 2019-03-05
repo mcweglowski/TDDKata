@@ -15,7 +15,13 @@ namespace TDDKata
                 return 0;
             }
 
-            return Int32.Parse(addends);
+            int sum = 0;
+            foreach (string addend in addends.Split(','))
+            {
+                sum = sum + int.Parse(addend);
+            }
+
+            return sum;
         }
     }
 }
