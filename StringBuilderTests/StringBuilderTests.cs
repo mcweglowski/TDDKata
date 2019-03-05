@@ -24,5 +24,14 @@ namespace StringBuilderTests
 
             Assert.AreEqual(4, actual);
         }
+
+        [TestMethod]
+        public void shouldReturnSumOfTwoCommaSeparatedNumbers()
+        {
+            StringCalculator stringCalculator = new StringCalculator();
+            int actual = stringCalculator.Add("1,2");
+
+            Assert.AreEqual(3, actual);
+        }
     }
 }
