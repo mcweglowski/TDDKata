@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace TDDKata
 {
-    public class Class1
+    public class StringCalculator
     {
+        public int Add(string addends)
+        {
+            return 0;
+        }
     }
 }
