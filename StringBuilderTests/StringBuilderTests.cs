@@ -15,5 +15,14 @@ namespace StringBuilderTests
 
             Assert.AreEqual(0, actual);
         }
+
+        [TestMethod]
+        public void shouldReturnValueEqualProvidedSingleNumber()
+        {
+            StringCalculator stringCalculator = new StringCalculator();
+            int actual = stringCalculator.Add("4");
+
+            Assert.AreEqual(4, actual);
+        }
     }
 }
