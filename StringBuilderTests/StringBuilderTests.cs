@@ -42,5 +42,14 @@ namespace StringBuilderTests
 
             Assert.AreEqual(6, actual);
         }
+
+        [TestMethod]
+        public void shouldAllowToSpecifyDelimiterOptionalInFirstLine()
+        {
+            StringCalculator stringCalculator = new StringCalculator();
+            int actual = stringCalculator.Add("//;\n1;2");
+
+            Assert.AreEqual(3, actual);
+        }
     }
 }
