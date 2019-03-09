@@ -22,7 +22,7 @@ namespace TDDKata
         {
             int sum = 0;
 
-            foreach (string addend in addends.Split(','))
+            foreach (string addend in addends.Split(new char[] { ',' , '\n'} ))
             {
                 sum = sum + int.Parse(addend);
             }
