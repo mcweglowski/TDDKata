@@ -9,7 +9,7 @@ namespace TDDKata
 {
     public class StringCalculator
     {
-        private char[] DefaultDelimiters = new char[] { ',', '\n' };
+        private char[] Delimiters = new char[] { ',', '\n' };
 
         public int Add(string addends)
         {
@@ -18,30 +18,60 @@ namespace TDDKata
                 return 0;
             }
 
+            addends = ParseInput(addends);
             return Sum(addends);
         }
 
         private int Sum(string addends)
         {
-            if (1 < addends.Length)
-            {
-                if ("//" == addends.Substring(0, 2))
-                {
-                    StringReader stringReader = new StringReader(addends);
-                    string header = stringReader.ReadLine();
-                    DefaultDelimiters = header.Substring(2, 1).ToCharArray();
-                    addends = stringReader.ReadLine();
-                }
-            }
-
             int sum = 0;
 
-            foreach (string addend in addends.Split(DefaultDelimiters))
+            foreach (string addend in addends.Split(Delimiters))
             {
                 sum = sum + int.Parse(addend);
             }
 
             return sum;
+        }
+
+        private string ParseInput(string addends)
+        {
+            if (false == IsHeaderInInput(addends))
+            {
+                return addends;
+            }
+
+            StringReader stringReader = new StringReader(addends);
+            string header = stringReader.ReadLine();
+            Delimiters = ReadDelimiter(header);
+            addends = stringReader.ReadLine();
+
+            return addends;
+        }
+
+        private bool IsShorterThanTwo(string addends)
+        {
+            return 2 > addends.Length;
+        }
+
+        private bool HasDelimiterSection(string addends)
+        {
+            return addends.Substring(0, 2).Equals("//");
+        }
+
+        private char[] ReadDelimiter(string header)
+        {
+            return header.Substring(2, 1).ToCharArray();
+        }
+
+        private bool IsHeaderInInput(string addends)
+        {
+            if (true == IsShorterThanTwo(addends))
+            {
+                return false;
+            }
+
+            return HasDelimiterSection(addends);
         }
     }
 }
