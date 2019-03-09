@@ -33,5 +33,14 @@ namespace StringBuilderTests
 
             Assert.AreEqual(3, actual);
         }
+
+        [TestMethod]
+        public void shouldReturnSixWhenNEWLINEUsedToSeparate()
+        {
+            StringCalculator stringCalculator = new StringCalculator();
+            int actual = stringCalculator.Add("1\n2,3");
+
+            Assert.AreEqual(6, actual);
+        }
     }
 }
