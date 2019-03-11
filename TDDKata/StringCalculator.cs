@@ -18,12 +18,9 @@ namespace TDDKata
                 return 0;
             }
 
-            addends = ParseInput(addends);
-
-            IList<int> addendsList = addends.Split(Delimiters).Select(x => Int32.Parse(x)).ToList();
+            IList<int> addendsList = ParseInput(addends);
             VerifyIfAnyNegatives(addendsList);
-
-            return Sum(addends);
+            return Sum(addendsList);
         }
 
         private void VerifyIfAnyNegatives(IList<int> addendsList)
@@ -39,23 +36,23 @@ namespace TDDKata
             }
         }
 
-        private int Sum(string addends)
+        private int Sum(IList<int> addendsList)
         {
             int sum = 0;
 
-            foreach (string addend in addends.Split(Delimiters))
+            foreach (int addend in addendsList)
             {
-                sum = sum + int.Parse(addend);
+                sum = sum + addend;
             }
 
             return sum;
         }
 
-        private string ParseInput(string addends)
+        private IList<int> ParseInput(string addends)
         {
             if (false == IsHeaderInInput(addends))
             {
-                return addends;
+                return ConvertInputToIistInt(addends);
             }
 
             StringReader stringReader = new StringReader(addends);
@@ -63,7 +60,12 @@ namespace TDDKata
             Delimiters = ReadDelimiter(header);
             addends = stringReader.ReadLine();
 
-            return addends;
+            return ConvertInputToIistInt(addends);
+        }
+
+        private IList<int> ConvertInputToIistInt(string addends)
+        {
+            return addends.Split(Delimiters).Select(x => Int32.Parse(x)).ToList();
         }
 
         private bool IsShorterThanTwo(string addends)
