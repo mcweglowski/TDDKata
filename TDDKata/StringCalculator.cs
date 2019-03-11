@@ -19,7 +19,24 @@ namespace TDDKata
             }
 
             addends = ParseInput(addends);
+
+            IList<int> addendsList = addends.Split(Delimiters).Select(x => Int32.Parse(x)).ToList();
+            VerifyIfAnyNegatives(addendsList);
+
             return Sum(addends);
+        }
+
+        private void VerifyIfAnyNegatives(IList<int> addendsList)
+        {
+            bool bAddends = addendsList.Any(x => x < 0);
+
+            if (true == bAddends)
+            {
+                string negatives = string.Join(",", addendsList.Where(x => x < 0).ToArray());
+
+                string message = "Negatives not allowed: " + negatives;
+                throw new Exception(message);
+            }
         }
 
         private int Sum(string addends)
