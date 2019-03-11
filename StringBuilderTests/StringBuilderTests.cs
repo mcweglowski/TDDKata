@@ -51,5 +51,21 @@ namespace StringBuilderTests
 
             Assert.AreEqual(3, actual);
         }
+
+        [TestMethod]
+        public void shouldThrowExceptionWithAllNegativesInInput()
+        {
+            try
+            {
+                StringCalculator stringCalculator = new StringCalculator();
+                stringCalculator.Add("1,2,5,-2,8,-33,5,1");
+
+                Assert.Fail();
+            }
+            catch (Exception exception)
+            {
+                Assert.AreEqual("Negatives not allowed: -2,-33", exception.Message);
+            }
+        }
     }
 }
