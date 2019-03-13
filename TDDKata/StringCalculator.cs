@@ -40,7 +40,7 @@ namespace TDDKata
         {
             int sum = 0;
 
-            foreach (int addend in addendsList)
+            foreach (int addend in addendsList.Where(x => x < 1001))
             {
                 sum = sum + addend;
             }
