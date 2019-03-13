@@ -67,5 +67,14 @@ namespace StringBuilderTests
                 Assert.AreEqual("Negatives not allowed: -2,-33", exception.Message);
             }
         }
+
+        [TestMethod]
+        public void shouldIgnoreNumbersGreaterThat1000()
+        {
+            StringCalculator stringCalculator = new StringCalculator();
+            int actual = stringCalculator.Add("1,2,10000,1001,20");
+
+            Assert.AreEqual(23, actual);
+        }
     }
 }
