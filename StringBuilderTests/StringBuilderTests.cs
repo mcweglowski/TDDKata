@@ -85,5 +85,14 @@ namespace StringBuilderTests
 
             Assert.AreEqual(6, actual);
         }
+
+        [TestMethod]
+        public void shouldAcceptMultipleCustomDelimiters()
+        {
+            StringCalculator stringCalculator = new StringCalculator();
+            int actual = stringCalculator.Add("//[*][%]\n1*2%3");
+
+            Assert.AreEqual(6, actual);
+        }
     }
 }
