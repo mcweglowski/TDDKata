@@ -81,8 +81,31 @@ namespace TDDKata
 
         private string[] ReadDelimiter(string header)
         {
-            string delimiter = header.Substring(CustomDelimitersSection.Length, header.Length - CustomDelimitersSection.Length);            
-            return new string[] { delimiter.Substring(1, delimiter.Length - 2 ) };
+            string delimiter = ExtractDelimiterFromHeader(header);
+            return new string[] { RemoveBracketsInDelimiter(delimiter) };
+        }
+
+        private string RemoveBracketsInDelimiter(string delimiter)
+        {
+            if (true == IsDelimiterInBrackets(delimiter))
+            {
+                int BracketsCount = 2;
+                return delimiter.Substring(1, delimiter.Length - BracketsCount);
+            }
+
+            return delimiter;
+        }
+
+        private bool IsDelimiterInBrackets(string delimiter)
+        {
+            char OpeningBracket = '[';
+            char ClosingBracket = ']';
+            return OpeningBracket == delimiter.ElementAt(0) && ClosingBracket == delimiter.ElementAt(delimiter.Length - 1);
+        }
+
+        private static string ExtractDelimiterFromHeader(string header)
+        {
+            return header.Substring(CustomDelimitersSection.Length, header.Length - CustomDelimitersSection.Length);
         }
 
         private bool IsHeaderInInput(string addends)
