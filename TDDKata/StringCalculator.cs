@@ -58,7 +58,7 @@ namespace TDDKata
 
             StringReader stringReader = new StringReader(addends);
             string header = stringReader.ReadLine();
-            Delimiters = ReadDelimiter(header);
+            Delimiters = ExtractDelimitersFromHeader(header);
             addends = stringReader.ReadLine();
 
             return ConvertInputToIistInt(addends);
@@ -69,9 +69,9 @@ namespace TDDKata
             return addends.Split(Delimiters, StringSplitOptions.None).Select(x => Int32.Parse(x)).ToList();
         }
 
-        private bool IsShorterThanTwo(string addends)
+        private bool IsShorterThanDelimiterSectionMarkWithSingleCharDelimiter(string addends)
         {
-            return 2 > addends.Length;
+            return addends.Length <= CustomDelimitersSection.Length;
         }
 
         private bool HasDelimiterSection(string addends)
@@ -79,12 +79,7 @@ namespace TDDKata
             return addends.Substring(0, CustomDelimitersSection.Length).Equals("//");
         }
 
-        private string[] ReadDelimiter(string header)
-        {
-            return ExtractDelimiterFromHeader(header);
-        }
-
-        private string RemoveUtmostBracketsInDelimiters(string delimiter)
+        private string RemoveUpmostBracketsInDelimiters(string delimiter)
         {
             if (true == IsDelimiterInBrackets(delimiter))
             {
@@ -102,17 +97,17 @@ namespace TDDKata
             return OpeningBracket == delimiter.ElementAt(0) && ClosingBracket == delimiter.ElementAt(delimiter.Length - 1);
         }
 
-        private string[] ExtractDelimiterFromHeader(string header)
+        private string[] ExtractDelimitersFromHeader(string header)
         {
             string delimiters = header.Substring(CustomDelimitersSection.Length, header.Length - CustomDelimitersSection.Length);
-            delimiters = RemoveUtmostBracketsInDelimiters(delimiters);
+            delimiters = RemoveUpmostBracketsInDelimiters(delimiters);
 
             return delimiters.Split(new string[] { "][" }, StringSplitOptions.None);
         }
 
         private bool IsHeaderInInput(string addends)
         {
-            if (true == IsShorterThanTwo(addends))
+            if (true == IsShorterThanDelimiterSectionMarkWithSingleCharDelimiter(addends))
             {
                 return false;
             }
