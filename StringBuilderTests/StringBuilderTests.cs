@@ -94,5 +94,14 @@ namespace StringBuilderTests
 
             Assert.AreEqual(6, actual);
         }
+
+        [TestMethod]
+        public void shouldAcceptMultipleCustomDelimitersWhoHaveDifferentLength()
+        {
+            StringCalculator stringCalculator = new StringCalculator();
+            int actual = stringCalculator.Add("//[*][%%][&&&]\n1*2%%3&&&4");
+
+            Assert.AreEqual(10, actual);
+        }
     }
 }
