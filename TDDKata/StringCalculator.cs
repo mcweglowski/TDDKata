@@ -81,11 +81,10 @@ namespace TDDKata
 
         private string[] ReadDelimiter(string header)
         {
-            string delimiter = ExtractDelimiterFromHeader(header);
-            return new string[] { RemoveBracketsInDelimiter(delimiter) };
+            return ExtractDelimiterFromHeader(header);
         }
 
-        private string RemoveBracketsInDelimiter(string delimiter)
+        private string RemoveUtmostBracketsInDelimiters(string delimiter)
         {
             if (true == IsDelimiterInBrackets(delimiter))
             {
@@ -103,9 +102,12 @@ namespace TDDKata
             return OpeningBracket == delimiter.ElementAt(0) && ClosingBracket == delimiter.ElementAt(delimiter.Length - 1);
         }
 
-        private static string ExtractDelimiterFromHeader(string header)
+        private string[] ExtractDelimiterFromHeader(string header)
         {
-            return header.Substring(CustomDelimitersSection.Length, header.Length - CustomDelimitersSection.Length);
+            string delimiters = header.Substring(CustomDelimitersSection.Length, header.Length - CustomDelimitersSection.Length);
+            delimiters = RemoveUtmostBracketsInDelimiters(delimiters);
+
+            return delimiters.Split(new string[] { "][" }, StringSplitOptions.None);
         }
 
         private bool IsHeaderInInput(string addends)
