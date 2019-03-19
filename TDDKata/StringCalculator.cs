@@ -9,7 +9,8 @@ namespace TDDKata
 {
     public class StringCalculator
     {
-        private char[] Delimiters = new char[] { ',', '\n' };
+        private string[] Delimiters = new string[] { ",", "\n" };
+        private const string CustomDelimitersSection = "//";
 
         public int Add(string addends)
         {
@@ -65,7 +66,7 @@ namespace TDDKata
 
         private IList<int> ConvertInputToIistInt(string addends)
         {
-            return addends.Split(Delimiters).Select(x => Int32.Parse(x)).ToList();
+            return addends.Split(Delimiters, StringSplitOptions.None).Select(x => Int32.Parse(x)).ToList();
         }
 
         private bool IsShorterThanTwo(string addends)
@@ -75,12 +76,13 @@ namespace TDDKata
 
         private bool HasDelimiterSection(string addends)
         {
-            return addends.Substring(0, 2).Equals("//");
+            return addends.Substring(0, CustomDelimitersSection.Length).Equals("//");
         }
 
-        private char[] ReadDelimiter(string header)
+        private string[] ReadDelimiter(string header)
         {
-            return header.Substring(2, 1).ToCharArray();
+            string delimiter = header.Substring(CustomDelimitersSection.Length, header.Length - CustomDelimitersSection.Length);            
+            return new string[] { delimiter.Substring(1, delimiter.Length - 2 ) };
         }
 
         private bool IsHeaderInInput(string addends)

@@ -78,7 +78,7 @@ namespace StringBuilderTests
         }
 
         [TestMethod]
-        public void shouldAccepDelimitersOfAnyLength()
+        public void shouldAcceptDelimitersOfAnyLength()
         {
             StringCalculator stringCalculator = new StringCalculator();
             int actual = stringCalculator.Add("//[***]\n1***2***3");
