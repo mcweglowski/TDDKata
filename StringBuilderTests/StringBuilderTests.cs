@@ -103,5 +103,16 @@ namespace StringBuilderTests
 
             Assert.AreEqual(10, actual);
         }
+
+        [TestMethod]
+        public shouldLogAddResultToTheLogger()
+        {
+            ILogger logger = new LoggerMock();
+            StringCalculator stringCalculator = new StringCalculator();
+            stringCalculator.logger = logger;
+            stringCalculator.Add("1,2");
+
+            Assert.AreEqual(logger.LastLogValue);
+        }
     }
 }
