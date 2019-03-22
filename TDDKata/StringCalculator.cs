@@ -1,4 +1,5 @@
-﻿using System;
+﻿using StringBuilderTests;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -12,6 +13,14 @@ namespace TDDKata
         private string[] Delimiters = new string[] { ",", "\n" };
         private const string CustomDelimitersSection = "//";
 
+        private ILogger logger;
+
+        public ILogger Logger
+        {
+            set { logger = value; }
+        }
+
+
         public int Add(string addends)
         {
             if (String.Empty == addends)
@@ -21,7 +30,9 @@ namespace TDDKata
 
             IList<int> addendsList = ParseInput(addends);
             VerifyIfAnyNegatives(addendsList);
-            return Sum(addendsList);
+            int sum = Sum(addendsList);
+            logger.Write(sum);
+            return sum;
         }
 
         private void VerifyIfAnyNegatives(IList<int> addendsList)

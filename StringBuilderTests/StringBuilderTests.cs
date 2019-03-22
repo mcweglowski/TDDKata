@@ -11,6 +11,7 @@ namespace StringBuilderTests
         public void shouldReturnZeroForEmptyInputString()
         {
             StringCalculator stringCalculator = new StringCalculator();
+            stringCalculator.Logger = new LoggerMock();
             int actual = stringCalculator.Add("");
 
             Assert.AreEqual(0, actual);
@@ -20,6 +21,7 @@ namespace StringBuilderTests
         public void shouldReturnValueEqualProvidedSingleNumber()
         {
             StringCalculator stringCalculator = new StringCalculator();
+            stringCalculator.Logger = new LoggerMock();
             int actual = stringCalculator.Add("4");
 
             Assert.AreEqual(4, actual);
@@ -29,6 +31,7 @@ namespace StringBuilderTests
         public void shouldReturnSumOfTwoCommaSeparatedNumbers()
         {
             StringCalculator stringCalculator = new StringCalculator();
+            stringCalculator.Logger = new LoggerMock();
             int actual = stringCalculator.Add("1,2");
 
             Assert.AreEqual(3, actual);
@@ -38,6 +41,7 @@ namespace StringBuilderTests
         public void shouldReturnSixWhenNEWLINEUsedToSeparate()
         {
             StringCalculator stringCalculator = new StringCalculator();
+            stringCalculator.Logger = new LoggerMock();
             int actual = stringCalculator.Add("1\n2,3");
 
             Assert.AreEqual(6, actual);
@@ -47,6 +51,7 @@ namespace StringBuilderTests
         public void shouldAllowToSpecifyDelimiterOptionalInFirstLine()
         {
             StringCalculator stringCalculator = new StringCalculator();
+            stringCalculator.Logger = new LoggerMock();
             int actual = stringCalculator.Add("//;\n1;2");
 
             Assert.AreEqual(3, actual);
@@ -58,6 +63,7 @@ namespace StringBuilderTests
             try
             {
                 StringCalculator stringCalculator = new StringCalculator();
+                stringCalculator.Logger = new LoggerMock();
                 stringCalculator.Add("1,2,5,-2,8,-33,5,1");
 
                 Assert.Fail();
@@ -72,6 +78,7 @@ namespace StringBuilderTests
         public void shouldIgnoreNumbersGreaterThat1000()
         {
             StringCalculator stringCalculator = new StringCalculator();
+            stringCalculator.Logger = new LoggerMock();
             int actual = stringCalculator.Add("1,2,10000,1001,20");
 
             Assert.AreEqual(23, actual);
@@ -81,6 +88,7 @@ namespace StringBuilderTests
         public void shouldAcceptDelimitersOfAnyLength()
         {
             StringCalculator stringCalculator = new StringCalculator();
+            stringCalculator.Logger = new LoggerMock();
             int actual = stringCalculator.Add("//[***]\n1***2***3");
 
             Assert.AreEqual(6, actual);
@@ -90,6 +98,7 @@ namespace StringBuilderTests
         public void shouldAcceptMultipleCustomDelimiters()
         {
             StringCalculator stringCalculator = new StringCalculator();
+            stringCalculator.Logger = new LoggerMock();
             int actual = stringCalculator.Add("//[*][%]\n1*2%3");
 
             Assert.AreEqual(6, actual);
@@ -99,20 +108,10 @@ namespace StringBuilderTests
         public void shouldAcceptMultipleCustomDelimitersWhoHaveDifferentLength()
         {
             StringCalculator stringCalculator = new StringCalculator();
+            stringCalculator.Logger = new LoggerMock();
             int actual = stringCalculator.Add("//[*][%%][&&&]\n1*2%%3&&&4");
 
             Assert.AreEqual(10, actual);
-        }
-
-        [TestMethod]
-        public shouldLogAddResultToTheLogger()
-        {
-            ILogger logger = new LoggerMock();
-            StringCalculator stringCalculator = new StringCalculator();
-            stringCalculator.logger = logger;
-            stringCalculator.Add("1,2");
-
-            Assert.AreEqual(logger.LastLogValue);
         }
     }
 }

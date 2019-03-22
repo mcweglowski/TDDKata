@@ -8,7 +8,6 @@ namespace StringBuilderTests
 {
     public interface ILogger
     {
-        void Log(int number);
-        int LastLogValue();
+        void Write(int number);
     }
 }
