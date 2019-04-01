@@ -37,7 +37,16 @@ namespace TDDKata
             IList<int> addendsList = ParseInput(addends);
             VerifyIfAnyNegatives(addendsList);
             int sum = Sum(addendsList);
-            Logger.Write(sum);
+
+            try
+            {
+                Logger.Write(sum);
+            }
+            catch (Exception exception)
+            {
+                Webservice.Notify(exception.Message);
+            }
+
             return sum;
         }
 

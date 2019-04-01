@@ -8,6 +8,6 @@ namespace TDDKata
 {
     public interface IWebservice
     {
-        void Notify();
+        void Notify(string message);
     }
 }
