@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NSubstitute;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,12 +14,14 @@ namespace StringBuilderTests
         [Fact]
         public void shouldNotifyWebServiceAboutFailedLogging()
         {
-            IWebservice webservice = new WebserviceMock(); => Check if Notify called
-            ILogger = new LoggerMock() = > throw Exception when called Add;
+            IWebservice webservice = Substitute.For<IWebservice>();
+            ILogger logger = Substitute.For<ILogger>();
+            logger.When(x => x.Write(Arg.Any<int>())).Do(x => { throw new Exception("Logger error"); });
 
             StringCalculator stringBuilder = new StringCalculator(logger, webservice);
+            stringBuilder.Add("1,2,3");
 
-            Assert.WasCalledOnce(webservice.Notify);
+            webservice.Recieved().Notify();
         }
 
     }
