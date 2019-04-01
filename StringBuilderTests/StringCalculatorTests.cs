@@ -5,7 +5,7 @@ using TDDKata;
 namespace StringBuilderTests
 {
     [TestClass]
-    public class StringBuilderTests
+    public class StringCalculatorTests
     {
         [TestMethod]
         public void shouldReturnZeroForEmptyInputString()
