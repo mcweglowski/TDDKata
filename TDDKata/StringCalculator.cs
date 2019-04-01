@@ -13,13 +13,19 @@ namespace TDDKata
         private string[] Delimiters = new string[] { ",", "\n" };
         private const string CustomDelimitersSection = "//";
 
-        private ILogger logger;
+        public ILogger Logger {get; set; }
+        public IWebservice Webservice { get; private set; }
 
-        public ILogger Logger
+        public StringCalculator()
         {
-            set { logger = value; }
+
         }
 
+        public StringCalculator(ILogger logger, IWebservice webservice)
+        {
+            Logger = logger;
+            Webservice = webservice;
+        }
 
         public int Add(string addends)
         {
@@ -31,7 +37,7 @@ namespace TDDKata
             IList<int> addendsList = ParseInput(addends);
             VerifyIfAnyNegatives(addendsList);
             int sum = Sum(addendsList);
-            logger.Write(sum);
+            Logger.Write(sum);
             return sum;
         }
 

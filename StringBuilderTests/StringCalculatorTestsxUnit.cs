@@ -21,7 +21,7 @@ namespace StringBuilderTests
             StringCalculator stringBuilder = new StringCalculator(logger, webservice);
             stringBuilder.Add("1,2,3");
 
-            webservice.Recieved().Notify();
+            webservice.Received().Notify();
         }
 
     }
